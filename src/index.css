@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --background: #eeeadd;
+  --foreground: #111111;
+  --card: #fbf9f2;
+  --card-foreground: #111111;
+  --primary: #111111;
+  --primary-foreground: #eeeadd;
+  --secondary: #d1d1e4;
+  --secondary-foreground: #111111;
+  --muted: #e3decd;
+  --muted-foreground: #55503f;
+  --accent: #d1e4dd;
+  --accent-foreground: #111111;
+  --destructive: #e4572e;
+  --destructive-foreground: #fff8f2;
+  --border: #111111;
+  --input: #111111;
+  --ring: #e4572e;
+  --radius: 0.125rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Atkinson Hyperlegible", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  /* the pegboard itself */
+  background-image: radial-gradient(rgba(17, 17, 17, 0.13) 1.5px, transparent 1.6px);
+  background-size: 24px 24px;
+  background-position: 6px 6px;
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+}
+
+/* hard-edged pegboard tag: 2px ink border, offset shadow, small wiggle on touch */
+.tag {
+  border: 2px solid var(--foreground);
+  box-shadow: 3px 3px 0 var(--foreground);
+  transition: transform 140ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 140ms ease;
+}
+.tag:hover,
+.tag:focus-visible {
+  transform: rotate(-1.4deg) translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--foreground);
+}
+.tag:active {
+  transform: rotate(0.8deg) translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--foreground);
+}
+
+.ink {
+  border: 2px solid var(--foreground);
+}
+
+/* the one signal: gear that is out */
+.out-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--destructive);
+  border: 2px solid var(--foreground);
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.photo-slot {
+  border: 2px dashed var(--foreground);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(17, 17, 17, 0.05) 10px,
+      rgba(17, 17, 17, 0.05) 20px
+    );
+}
+
+*:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
