@@ -1,15 +1,15 @@
 // All user-facing words live here. Edit this file, not the components.
 
 export const SHOP = {
-  name: "Bradley Street Gear Library",
-  org: "Bradley Street Bicycle Co-op + RAR New Haven",
+  name: "RAR New Haven Gear Library",
+  org: "RAR New Haven + The Bradley Street Bicycle Co-op",
   address: "138 Bradley St, New Haven",
   neighborhood: "East Rock",
 };
 
 export const STEWARD = {
-  name: "Kai",
-  line: "Kai keeps this shelf — say hi at the shop.",
+  name: "Kai (and the rest of RAR New Haven!)",
+  line: "Kai manages this library — say hi at the shop.",
 };
 
 export const SHIFTS = ["Volunteer Monday, 4–7pm", "Tuesday, 4–7pm", "Thursday, 4–7pm"];
@@ -21,17 +21,17 @@ export const LOAN_DAYS = 14;
 export const wall = {
   counter: (on: number, total: number) => `${on} of ${total} on the shelf`,
   showing: (n: number) => `${n} ${n === 1 ? "thing" : "things"} match`,
-  empty: "Nothing on the shelf yet — add the first thing from the crew page.",
+  empty: "Nothing in the library yet — add the first thing from the crew page.",
   all: "Everything",
   inOnly: "In right now",
-  search: "Search the shelf",
+  search: "Search the library",
   noMatch: "Nothing matches that",
   noMatchHint: "Try a shorter word — brand, or where it mounts.",
   clear: "Clear filters",
   outLabel: "out",
-  onShelf: "on the shelf",
+  onShelf: "available",
   lostAsk:
-    "Missing since its last trip. Seen it? Tell the crew — no questions asked, we'd just like it back on the board.",
+    "Missing since its last trip. Seen it? Tell the crew — no questions asked, we'd just like it back so other people can use it to have rad trips!",
   repairNote: "On the repair stand. Ask the crew when it'll be back up.",
   cantRequest: "Not lendable right now — the crew is on it.",
   storiesHeading: "Where it's been",
@@ -42,7 +42,7 @@ export const wall = {
 export const states = {
   available: { label: "On the shelf", tag: "on the shelf", tint: "#EEEADD", ink: "#111111" },
   out: { label: "Out", tag: "all out", tint: "#EEEADD", ink: "#111111" },
-  repair: { label: "Needs work", tag: "in the stand", tint: "#E8C56B", ink: "#111111" },
+  repair: { label: "Needs repair", tag: "in the stand", tint: "#E8C56B", ink: "#111111" },
   missing: { label: "Missing", tag: "missing", tint: "#111111", ink: "#EEEADD" },
   retired: { label: "Retired", tag: "retired", tint: "#D7D2C2", ink: "#55503F" },
 };
@@ -94,7 +94,7 @@ export const request = {
 };
 
 export const crew = {
-  heading: "Crew",
+  heading: "Librarians",
   holds: "Waiting",
   out: "Out",
   shelf: "Shelf",
@@ -130,37 +130,35 @@ export const trip = {
 export const faq: { q: string; a: string; needsYourWords?: boolean }[] = [
   {
     q: "Do I have to be a co-op member to borrow?",
-    a: "No. If you can get to the shop during open hours, you can borrow. Members, RAR riders, and people who just found this page are all the same to us.",
+    a: "Yes, this library is for BSBC members and RAR riders. If you want to become one of either, please reach out!",
   },
   {
     q: "Is there a deposit or a fee?",
-    a: "TODO: write this in your own voice — what the co-op actually asks for, if anything, and what happens if someone can't pay it.",
-    needsYourWords: true,
-  },
+    a: "No! Borrowing gear is totally free, but is only open to RAR or BSBC members.",
+    },
   {
     q: "What if I break something, or it doesn't come back?",
-    a: "TODO: write this in your own voice — how the crew actually handles a busted zipper or a lost stake on a Saturday afternoon. Say the forgiving version out loud, because people who've never borrowed gear assume the worst.",
-    needsYourWords: true,
+    a: "If something is broken or is lost, we will work with you to figure out the best way to replace the item! If you have $ to donate, that's great, and if not, that's okay. You aren't on the hook for the replacement cost, but we do reserve the right to stop lending items to folks when there is a trend of being careless with this shared gear. This library is meant to serve our whole community, and taking good care of each item is integral to that. ",
   },
   {
     q: "How long can I keep it?",
-    a: `Two weeks from pickup. If you need longer, tell the crew — that's a conversation, not a fine.`,
+    a: `Two weeks from pickup. If you need longer, let us know — we can be flexible!`,
   },
   {
     q: "I've never bikepacked. Is this for me?",
-    a: "Yes. That's most of why this exists. Nobody here will quiz you about your setup. Say so in the request and someone will walk you through packing it at the shop.",
+    a: "Yes. That's most of why this exists. Nobody here will quiz you about your setup. Say so in your request and someone will walk you through packing it at the shop.",
   },
   {
     q: "When can I pick things up?",
     a: `Gear changes hands at ${SHOP.address} during open shifts: ${SHIFTS.join(", ")}. If none of those work, say so in your request and the crew will sort something out.`,
   },
   {
-    q: "Can I request a whole kit at once?",
-    a: "That's the point. Tap everything you want, then send one request. You'll get one message back listing all of it.",
+    q: "Can I request multiple items at once?",
+    a: "Yes! Add everything you want, then send one request. You'll get one message back listing all of it.",
   },
   {
     q: "What happens to the trip stories and photos?",
-    a: "We only put them up if you say yes, and only your first name. Ask any crew member to take one down and it's gone that day.",
+    a: "We only put them up if you say yes, and only use your first name. Ask any crew member to take one down and it's gone that day.",
   },
 ];
 
