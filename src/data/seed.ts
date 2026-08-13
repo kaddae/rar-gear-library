@@ -9,6 +9,10 @@ import type {
 
 export * from "@/lib/schema";
 
+/** A borrower asks for a KIND of thing, and how many: three pairs of panniers. */
+export type Line = { itemId: string; qty: number };
+
+/** A hold carries contact details, so its cloud document is members-only. */
 export type Hold = {
   id: string;
   name: string;
@@ -18,23 +22,28 @@ export type Hold = {
   shift: string;
   when: string;
   note: string;
-  /** borrowers pick a kind of thing; crew assigns the actual copy at handover */
-  itemIds: string[];
+  /** one line per kind of thing; crew assigns the actual copies at handover */
+  lines: Line[];
   status: "pending" | "fulfilled" | "cancelled";
   createdAt: string;
 };
 
+/** Loans are public — the wall reads "out" from them — so a loan carries a
+ *  first name and nothing else about the person. `tokenKey` is a hash of the
+ *  trip link, so a public loan can be matched to a link without publishing it. */
 export type Loan = {
   id: string;
-  holdId: string | null;
-  borrowerName: string;
-  borrowerEmail: string;
+  holdId: string;
+  borrowerFirst: string;
   out: string;
   due: string;
   status: "open" | "closed";
-  token: string;
+  tokenKey: string;
   items: { copyId: string; returnedAt: string | null }[];
 };
+
+/** The private half of a loan: how to reach them, and their trip link. */
+export type LoanContact = { id: string; loanId: string; email: string; token: string };
 
 export type Story = {
   id: string;
@@ -236,9 +245,13 @@ export const SEED_HOLDS: Hold[] = [
     phone: "203-555-0142",
     group: "RAR New Haven",
     shift: "Thursday, 4–7pm",
-    when: "",
+    when: "or most Saturday mornings",
     note: "First overnight ever. I've never used a camp stove, would love thirty seconds of showing me.",
-    itemIds: ["i-bp01", "i-bp05", "i-cp04"],
+    lines: [
+      { itemId: "i-bp01", qty: 1 },
+      { itemId: "i-bp04", qty: 2 },
+      { itemId: "i-cp04", qty: 1 },
+    ],
     status: "pending",
     createdAt: iso(-2),
   },
@@ -247,18 +260,21 @@ export const SEED_HOLDS: Hold[] = [
 export const SEED_LOANS: Loan[] = [
   {
     id: "l1",
-    holdId: null,
-    borrowerName: "Nadia Ferreira",
-    borrowerEmail: "nadia.f@example.com",
+    holdId: "",
+    borrowerFirst: "Nadia",
     out: iso(-6),
     due: iso(8),
     status: "open",
-    token: "demo-nadia-1",
+    tokenKey: "plain:demo-nadia-1",
     items: [
       { copyId: "c-cp01a", returnedAt: null },
       { copyId: "c-cp03a", returnedAt: null },
     ],
   },
+];
+
+export const SEED_LOAN_CONTACTS: LoanContact[] = [
+  { id: "lc1", loanId: "l1", email: "nadia.f@example.com", token: "demo-nadia-1" },
 ];
 
 export const SEED_STORIES: Story[] = [

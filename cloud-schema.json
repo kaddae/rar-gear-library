@@ -1,0 +1,52 @@
+{
+  "collections": {
+    "holds": {
+      "fields": {
+        "name": { "type": "string", "required": true, "maxLength": 120 },
+        "email": { "type": "string", "required": true, "maxLength": 200 },
+        "phone": { "type": "string", "maxLength": 60 },
+        "group": { "type": "string", "maxLength": 120 },
+        "shift": { "type": "string", "maxLength": 120 },
+        "when": { "type": "string", "maxLength": 300 },
+        "note": { "type": "string", "maxLength": 2000 },
+        "lines": { "type": "array", "required": true },
+        "status": { "type": "string", "required": true, "maxLength": 20 },
+        "createdAt": { "type": "string", "maxLength": 40 }
+      }
+    },
+    "loans": {
+      "fields": {
+        "holdId": { "type": "string", "maxLength": 60 },
+        "borrowerFirst": { "type": "string", "required": true, "maxLength": 80 },
+        "out": { "type": "string", "required": true, "maxLength": 40 },
+        "due": { "type": "string", "required": true, "maxLength": 40 },
+        "status": { "type": "string", "required": true, "maxLength": 20 },
+        "tokenKey": { "type": "string", "maxLength": 120 },
+        "items": { "type": "array", "required": true }
+      }
+    },
+    "loan_contacts": {
+      "fields": {
+        "loanId": { "type": "string", "required": true, "maxLength": 60 },
+        "email": { "type": "string", "maxLength": 200 },
+        "token": { "type": "string", "maxLength": 80 }
+      }
+    },
+    "stories": {
+      "fields": {
+        "loanId": { "type": "string", "required": true, "maxLength": 60 },
+        "firstName": { "type": "string", "required": true, "maxLength": 80 },
+        "itemIds": { "type": "array", "required": true },
+        "text": { "type": "string", "required": true, "maxLength": 2000 },
+        "photo": { "type": "string" },
+        "hidden": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 40 }
+      }
+    },
+    "meta": {
+      "fields": {
+        "key": { "type": "string", "required": true, "unique": true, "maxLength": 60 }
+      }
+    }
+  }
+}

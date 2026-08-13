@@ -10,6 +10,8 @@ export const SHOP = {
 export const STEWARD = {
   name: "Kai (and the rest of RAR New Haven!)",
   line: "Kai manages this library — say hi at the shop.",
+  /** Every request emails a copy here. One-line edit to point it elsewhere. */
+  email: "rarnewhaven@gmail.com",
 };
 
 export const SHIFTS = ["Volunteer Monday, 4–7pm", "Tuesday, 4–7pm", "Thursday, 4–7pm"];
@@ -17,6 +19,10 @@ export const SHIFTS = ["Volunteer Monday, 4–7pm", "Tuesday, 4–7pm", "Thursda
 export const GROUPS = ["Bradley Street Co-op", "RAR New Haven", "Neither / just found this"];
 
 export const LOAN_DAYS = 14;
+
+/** Someone can tap a shift AND type their own window — crew needs to see both. */
+export const whenText = (o: { shift?: string; when?: string }) =>
+  [o.shift, o.when].filter((s) => s && s.trim()).join(" · or ") || "Whenever the shop is open";
 
 export const wall = {
   counter: (on: number, total: number) => `${on} of ${total} on the shelf`,
@@ -30,6 +36,11 @@ export const wall = {
   clear: "Clear filters",
   outLabel: "out",
   onShelf: "available",
+  howMany: "How many?",
+  stock: (total: number, free: number) =>
+    `${total} in the library · ${free === 0 ? "none free right now" : `${free} free right now`}`,
+  allOfThem: (n: number) => `That's all ${n} of them.`,
+  askAnyway: "Asking for more than are free is fine — pickup is days away.",
   lostAsk:
     "Missing since its last trip. Seen it? Tell the crew — no questions asked, we'd just like it back so other people can use it to have rad trips!",
   repairNote: "On the repair stand. Ask the crew when it'll be back up.",
@@ -77,13 +88,18 @@ export const kit = {
   many: (n: number) => `${n} things in your kit`,
   cta: "Request these",
   clear: "Empty kit",
+  qty: (n: number) => `×${n}`,
+  drop: (name: string) => `Take ${name} out of your kit`,
+  more: (name: string) => `Add another ${name}`,
+  fewer: (name: string) => `One fewer ${name}`,
 };
 
 export const request = {
   heading: "Request your kit",
   sub: `Two-week loan. Gear changes hands at the shop — ${SHOP.address}.`,
   noteLabel: "Anything we should know?",
-  noteHint: "Only the crew sees this. Where you're headed, what you've done before, what you're unsure about.",
+  noteHint:
+    "Only the crew sees this. Where you're headed, what you've done before, what you're unsure about. If you want a particular one off the wall, say so here.",
   whenLabel: "Or tell us when works",
   whenHint: "If none of those shifts fit, say when you can get there and we'll figure it out.",
   submit: "Send the request",
@@ -91,6 +107,8 @@ export const request = {
   doneHeading: "Got it.",
   doneBody: (name: string) =>
     `We'll have this pulled and waiting. Ask for ${name} at the counter.`,
+  emailed: (email: string) => `Confirmation on its way to ${email}.`,
+  emailFailed: "Couldn't send the confirmation email — the crew still has your request.",
 };
 
 export const crew = {
@@ -117,6 +135,27 @@ export const crew = {
   pasteUnknown: (cols: string[]) => `Ignored columns: ${cols.join(", ")}`,
   pasteMissing: "No Item Name or Number column found — paste the header row too.",
   commit: "Add these to the shelf",
+  log: "Log",
+  logHeading: "Every hand-off, newest first",
+  logEmpty: "Nothing has gone out yet. The first hand-over writes the first line.",
+  logFilter: "Filter by tag, item, or name",
+  logNoMatch: "Nothing in the log matches that.",
+  logOut: "went out",
+  logBack: "came back",
+  logStill: "still out",
+  logCount: (n: number) => `${n} ${n === 1 ? "hand-off" : "hand-offs"}`,
+  signInHeading: "Crew sign-in",
+  signInBody:
+    "Requests carry people's phone numbers and notes, so they only open for signed-in crew. A code comes by email — no password to remember.",
+  signInSend: "Send me a code",
+  signInSending: "Sending…",
+  signInCode: "6-digit code",
+  signInVerify: "Sign in",
+  signInAgain: "Send another code",
+  signOut: "Sign out",
+  codeSent: (email: string) => `Code sent to ${email}. Good for a few minutes.`,
+  noneFree: "none on shelf",
+  unitOf: (n: number, of: number) => `#${n} of ${of}`,
 };
 
 export const trip = {
@@ -167,6 +206,25 @@ export const emails = {
     `Hey ${o.name.split(" ")[0]} — the gear library has your request.\n\n${o.items
       .map((i) => `· ${i}`)
       .join("\n")}\n\nPickup: ${o.when}, at ${SHOP.address}.\nAsk for ${STEWARD.name} at the counter.\n\nTwo-week loan. Use it hard, bring it back.\n— ${SHOP.org}`,
+  crewCopy: (o: {
+    name: string;
+    email: string;
+    phone: string;
+    group: string;
+    items: string[];
+    when: string;
+    note: string;
+  }) =>
+    `New gear request.\n\n${o.name}${o.phone ? ` · ${o.phone}` : ""}\n${o.email}\nRides with: ${
+      o.group
+    }\nComing by: ${o.when}\n\n${o.items.map((i) => `· ${i}`).join("\n")}${
+      o.note ? `\n\nThey said:\n${o.note}` : ""
+    }\n\nIt's in the Waiting tab — sign in on the crew page to hand it over.`,
+  subjects: {
+    hold: "Your gear library request",
+    crew: (name: string) => `Gear request from ${name}`,
+    nudge: "Where'd it go?",
+  },
   storyNudge: (o: { name: string; link: string }) =>
     `Hey ${o.name.split(" ")[0]} — thanks for bringing that back.\n\nWhere'd it go? One or two lines, a photo if you got one. We put them next to the gear so the next person can see where it's been.\n\n${o.link}\n\n— ${SHOP.org}`,
 };
